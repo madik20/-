@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>КЕРУЕН - Дәстүрлі қазақ кафесі</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f3e9;
+            color: #333;
+        }
+        
+        header {
+            background-color: #8b0000;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        nav {
+            background-color: #a52a2a;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #f9f3e9;
+        }
+        
+        .hero {
+            background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836');
+            background-size: cover;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #8b0000;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #a52a2a;
+        }
+        
+        section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            color: #8b0000;
+        }
+        
+        /* Стили для вкладок меню */
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .menu-tab {
+            padding: 10px 20px;
+            background-color: #ddd;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            transition: all 0.3s;
+        }
+        
+        .menu-tab.active {
+            background-color: #8b0000;
+            color: white;
+        }
+        
+        .menu-content {
+            display: none;
+        }
+        
+        .menu-content.active {
+            display: block;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .menu-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .menu-item-content {
+            padding: 20px;
+        }
+        
+        .menu-item h3 {
+            margin-bottom: 10px;
+            color: #8b0000;
+        }
+        
+        .menu-item p {
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        .price {
+            font-weight: bold;
+            color: #8b0000;
+            font-size: 1.2rem;
+        }
+        
+        /* Стили для раздела с адресом */
+        .address-section {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+        
+        .address-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .address-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .address-info h3 {
+            color: #8b0000;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .address-info p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .address-info i {
+            margin-right: 10px;
+            color: #8b0000;
+        }
+        
+        .map-container {
+            flex: 1;
+            min-width: 300px;
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 60px;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-info div {
+            margin: 0 20px;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: #8b0000;
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+            }
+            
+            .contact-info div {
+                margin: 10px 0;
+            }
+            
+            .address-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">КЕРУЕН</div>
+        <p>Дәстүрлі қазақ тағамдары</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#home">Басты</a></li>
+            <li><a href="#menu">Мәзір</a></li>
+            <li><a href="#about">Біз туралы</a></li>
+            <li><a href="#address">Адрес</a></li>
+            <li><a href="#contact">Байланыс</a></li>
+        </ul>
+    </nav>
+    
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>КЕРУЕН кафесіне қош келдіңіз!</h1>
+            <p>Қазақстанның дәстүрлі дәмдері</p>
+            <a href="#menu" class="btn">Мәзірді қарау</a>
+        </div>
+    </section>
+    
+    <section id="menu">
+        <h2 class="section-title">Біздің мәзір</h2>
+        
+        <div class="menu-tabs">
+            <div class="menu-tab active" onclick="openMenuTab('main-dishes')">Негізгі тағамдар</div>
+            <div class="menu-tab" onclick="openMenuTab('soups')">Сорпалар</div>
+            <div class="menu-tab" onclick="openMenuTab('salads')">Салаттар</div>
+            <div class="menu-tab" onclick="openMenuTab('drinks')">Сусындар</div>
+        </div>
+        
+        <div id="main-dishes" class="menu-content active">
+            <div class="menu-items">
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1604329760661-e71dc83f8f26" alt="Бешбармақ">
+                    <div class="menu-item-content">
+                        <h3>Бешбармақ</h3>
+                        <p>Дәстүрлі қазақтың ұлттық тағамы</p>
+                        <div class="price">2500 ₸</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1604977046806-87b8b1ab341f" alt="Қуырдақ">
+                    <div class="menu-item-content">
+                        <h3>Қуырдақ</h3>
+                        <p>Ет пен субпродукттардан жасалады</p>
+                        <div class="price">2200 ₸</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1604977046806-87b8b1ab341f" alt="Плов">
+                    <div class="menu-item-content">
+                        <h3>Плов</h3>
+                        <p>Дәстүрлі ортаазиялық тағам</p>
+                        <div class="price">2000 ₸</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="soups" class="menu-content">
+            <div class="menu-items">
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1547592180-85f173990554" alt="Көже">
+                    <div class="menu-item-content">
+                        <h3>Көже</h3>
+                        <p>Етті дәстүрлі сорпа</p>
+                        <div class="price">1800 ₸</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1547592180-85f173990554" alt="Сорпа">
+                    <div class="menu-item-content">
+                        <h3>Қой сорпасы</h3>
+                        <p>Қой етінен жасалған дәмді сорпа</p>
+                        <div class="price">1900 ₸</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="salads" class="menu-content">
+            <div class="menu-items">
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c" alt="Салат">
+                    <div class="menu-item-content">
+                        <h3>Жаңа көктем</h3>
+                        <p>Жас көкөністер салаты</p>
+                        <div class="price">1200 ₸</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="drinks" class="menu-content">
+            <div class="menu-items">
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1551029506-0807df4e2031" alt="Кумыс">
+                    <div class="menu-item-content">
+                        <h3>Қымыз</h3>
+                        <p>Дәстүрлі қазақ сусыны</p>
+                        <div class="price">1500 ₸</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1551029506-0807df4e2031" alt="Шай">
+                    <div class="menu-item-content">
+                        <h3>Дәстүрлі қазақ шайы</h3>
+                        <p>Қаймақ пен нан қосылған</p>
+                        <div class="price">800 ₸</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="about">
+        <h2 class="section-title">Біз туралы</h2>
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+            <p>КЕРУЕН кафесі 2010 жылы ашылған. Біз қазақтың дәстүрлі тағамдарын ұрпақтан-ұрпаққа жеткен рецепттер бойынша дайындаймыз.</p>
+            <p>Біздің мақсатымыз - клиенттерге тек қана дәмді емес, сонымен қатар денсаулыққа пайдалы тағамдар ұсыну.</p>
+        </div>
+    </section>
+    
+    <section id="address">
+        <h2 class="section-title">Адрес</h2>
+        <div class="address-section">
+            <div class="address-container">
+                <div class="address-info">
+                    <h3>Біздің кафе</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Қазақстан, Астана, Достық көшесі 12</p>
+                    <p><i class="fas fa-subway"></i> "Сарыарка" метро станциясына жақын</p>
+                    <p><i class="fas fa-car"></i> Автотұрақ бар</p>
+                    <p><i class="fas fa-clock"></i> Жұмыс уақыты: 10:00 - 22:00 (Дүйсенбі-жексенбі)</p>
+                </div>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2503.215715434866!2d71.42721531575674!3d51.13302897957512!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x424585b1d7e68a9d%3A0x4f6a1b3e5b9a3b4d!2z0JDQtNCy0LjRgdGC0LDQvSDQutC-0LvRjNC-0Lkg0JrQsNGA0YvQs9C-0LvQtdC60LAgItCa0LXRgNC10Y_RgtC10L0i!5e0!3m2!1sru!2skz!4v1620000000000!5m2!1sru!2skz" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer id="contact">
+        <div class="contact-info">
+            <div>
+                <h3>Байланыс</h3>
+                <p><i class="fas fa-phone"></i> +7 (777) 123 45 67</p>
+                <p><i class="fas fa-envelope"></i> keruen.cafe@example.com</p>
+            </div>
+            <div>
+                <h3>Мекен-жай</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Астана, Достық көшесі 12</p>
+            </div>
+            <div>
+                <h3>Жұмыс уақыты</h3>
+                <p><i class="fas fa-clock"></i> Дүйсенбі-жексенбі: 10:00 - 22:00</p>
+            </div>
+        </div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p style="margin-top: 20px;">© 2023 КЕРУЕН кафесі. Барлық құқықтар қорғалған.</p>
+    </footer>
+    
+    <!-- Font Awesome для иконок -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <script>
+        // Функция для переключения вкладок меню
+        function openMenuTab(tabName) {
+            // Скрыть все вкладки
+            const menuContents = document.getElementsByClassName('menu-content');
+            for (let i = 0; i < menuContents.length; i++) {
+                menuContents[i].classList.remove('active');
+            }
+            
+            // Убрать активный класс у всех кнопок
+            const menuTabs = document.getElementsByClassName('menu-tab');
+            for (let i = 0; i < menuTabs.length; i++) {
+                menuTabs[i].classList.remove('active');
+            }
+            
+            // Показать выбранную вкладку и сделать кнопку активной
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+        
+        // Плавная прокрутка для якорных ссылок
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
